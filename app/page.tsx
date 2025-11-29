@@ -54,8 +54,8 @@ export default function Home() {
     <main className={styles.mainContainer}>
       <div className={styles.header}>
         <div className={styles.headerContent}>
-          <h1>Our Products</h1>
-          <p>Browse our collection of {totalProducts} products</p>
+          <h1>Products</h1>
+          <p>Currently {totalProducts} products are in Server</p>
         </div>
         <Link href="/add" className={styles.addProductButton}>
           + Add New Product
@@ -98,7 +98,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Pagination */}
           <div className={styles.paginationContainer}>
             <button
               onClick={handlePreviousPage}

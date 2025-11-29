@@ -1,0 +1,272 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.backLink:hover {
+  background-color: rgba(102, 126, 234, 0.1);
+  color: #764ba2;
+}
+
+.loadingSpinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  font-size: 18px;
+  color: #666;
+}
+
+.errorContainer {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.errorContainer h2 {
+  color: #d32f2f;
+  margin-bottom: 10px;
+}
+
+.errorContainer p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.productContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+}
+
+.imageSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mainImageContainer {
+  width: 100%;
+  height: 500px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #e0e0e0;
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.noImage {
+  color: #999;
+  font-size: 16px;
+}
+
+.thumbnailGallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 12px;
+}
+
+.thumbnail {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 3px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  background: #f5f5f5;
+  transition: all 0.3s ease;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumbnail:hover {
+  border-color: #667eea;
+}
+
+.thumbnail.active {
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.detailsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.productName {
+  margin: 0;
+  font-size: 32px;
+  color: #333;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.priceSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price {
+  font-size: 36px;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.descriptionSection {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.descriptionSection h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+
+.description {
+  margin: 0;
+  color: #666;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.productMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  background: #f0f8ff;
+  border-radius: 8px;
+}
+
+.metaItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.metaLabel {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.metaValue {
+  color: #666;
+  font-size: 14px;
+  font-family: "Courier New", monospace;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.addToCartButton,
+.contactButton {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.addToCartButton {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.addToCartButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.contactButton {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.contactButton:hover {
+  background: #f0f8ff;
+}
+
+@media (max-width: 768px) {
+  .productContainer {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 20px;
+  }
+
+  .mainImageContainer {
+    height: 400px;
+  }
+
+  .productName {
+    font-size: 24px;
+  }
+
+  .price {
+    font-size: 28px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .addToCartButton,
+  .contactButton {
+    width: 100%;
+  }
+
+  .descriptionSection,
+  .productMeta {
+    padding: 15px;
+  }
+}

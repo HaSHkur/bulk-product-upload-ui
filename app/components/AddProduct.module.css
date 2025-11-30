@@ -68,6 +68,12 @@
   font-family: inherit;
   font-size: 14px;
   transition: all 0.3s ease;
+  color: #000; /* ensure black text inside inputs and textareas */
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .formGroup input:focus,
@@ -147,6 +153,40 @@
   align-items: center;
   justify-content: center;
   padding: 0;
+}
+
+/* Upload progress overlay shown during image upload */
+.uploadOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  gap: 8px;
+  padding: 8px;
+}
+
+.progressBarContainer {
+  width: 70%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, #67e8f9 0%, #7c3aed 100%);
+  width: 0%;
+  transition: width 200ms ease;
+}
+
+.progressPercent {
+  font-weight: 700;
+  font-size: 12px;
 }
 
 .removeButton:hover:not(:disabled) {

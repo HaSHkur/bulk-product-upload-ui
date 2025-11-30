@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { productService } from "@/app/service/api";
 import { Product } from "@/src/types/product";
 import styles from "@/app/components/ProductDetail.module.css";
@@ -17,10 +18,26 @@ export default function ProductDetailPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const loadProduct = async () => {
+      if (!productId) return;
+
       try {
         setLoading(true);
         setError(null);
+
+        // Try to reuse product from sessionStorage (saved on landing page click)
+        try {
+          const stored = sessionStorage.getItem(`product_${productId}`);
+          if (stored) {
+            const parsed: Product = JSON.parse(stored);
+            setProduct(parsed);
+            setLoading(false);
+            return; // skip network call
+          }
+        } catch {
+          // ignore parse/storage errors and fall back to network
+        }
+
         const data = await productService.getProductById(productId);
         setProduct(data);
       } catch (err: unknown) {
@@ -31,9 +48,7 @@ export default function ProductDetailPage() {
       }
     };
 
-    if (productId) {
-      fetchProduct();
-    }
+    loadProduct();
   }, [productId]);
 
   if (loading) {
@@ -69,18 +84,17 @@ export default function ProductDetailPage() {
       </Link>
 
       <div className={styles.productContainer}>
-        {/* Image Gallery */}
         <div className={styles.imageSection}>
           <div className={styles.mainImageContainer}>
             {currentImage ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={currentImage} alt={product.name} className={styles.mainImage} />
+              <a href={currentImage} target="_blank" rel="noopener noreferrer" title="Open image in new tab">
+                <Image src={currentImage} alt={product.name} className={styles.mainImage} fill unoptimized priority />
+              </a>
             ) : (
               <div className={styles.noImage}>No image available</div>
             )}
           </div>
 
-          {/* Thumbnail Gallery */}
           {product.imageUrls.length > 1 && (
             <div className={styles.thumbnailGallery}>
               {product.imageUrls.map((imageUrl, index) => (
@@ -98,7 +112,6 @@ export default function ProductDetailPage() {
           )}
         </div>
 
-        {/* Product Details */}
         <div className={styles.detailsSection}>
           <h1 className={styles.productName}>{product.name}</h1>
 
@@ -113,22 +126,22 @@ export default function ProductDetailPage() {
 
           <div className={styles.productMeta}>
             <div className={styles.metaItem}>
-              <span className={styles.metaLabel}>Product ID:</span>
-              <span className={styles.metaValue}>{product.id}</span>
+                <span className={styles.metaLabel}>Product ID:</span>
+                <span className={styles.metaValue}>{product.id}</span>
             </div>
             <div className={styles.metaItem}>
-              <span className={styles.metaLabel}>Images:</span>
-              <span className={styles.metaValue}>{product.imageUrls.length}</span>
+                <span className={styles.metaLabel}>Image URLs:</span>
+                <div className={styles.metaValue}>
+                    {product.imageUrls.map((item, index) => (
+                        <p key={index}>
+                            <a href={item} target="_blank" rel="noopener noreferrer">
+                                Image {index + 1}
+                            </a>
+                        </p>
+                    ))}
+                </div>
+                {/* <span className={styles.metaValue}>{product.imageUrls.length}</span> */}
             </div>
-          </div>
-
-          <div className={styles.actions}>
-            <button className={styles.addToCartButton} onClick={() => alert("Add to cart functionality coming soon!")}>
-              Add to Cart
-            </button>
-            <button className={styles.contactButton} onClick={() => alert("Contact seller coming soon!")}>
-              Contact Seller
-            </button>
           </div>
         </div>
       </div>

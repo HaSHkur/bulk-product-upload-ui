@@ -77,7 +77,18 @@ export default function Home() {
         <>
           <div className={styles.productsGrid}>
             {products.map((product) => (
-              <Link key={product.id} href={`/products/${product.id}`} className={styles.productCard}>
+              <Link
+                key={product.id}
+                href={`/products/${product.id}`}
+                className={styles.productCard}
+                onClick={() => {
+                  try {
+                    sessionStorage.setItem(`product_${product.id}`, JSON.stringify(product));
+                  } catch {
+                    // ignore storage errors
+                  }
+                }}
+              >
                 <div className={styles.imageContainer}>
                   {product.imageUrls && product.imageUrls.length > 0 ? (
                     // eslint-disable-next-line @next/next/no-img-element

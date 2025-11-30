@@ -14,6 +14,7 @@ export default function AddProductPage() {
   });
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
@@ -67,18 +68,25 @@ export default function AddProductPage() {
     try {
       setLoading(true);
       setMessage(null);
+      setUploadProgress(0);
 
-      const result = await productService.createProduct({
-        name: formData.name,
-        description: formData.description,
-        price: parseFloat(formData.price),
-        images,
-      });
+      const result = await productService.createProduct(
+        {
+          name: formData.name,
+          description: formData.description,
+          price: parseFloat(formData.price),
+          images,
+        },
+        (percent) => {
+          setUploadProgress(percent);
+        }
+      );
 
-      setMessage({ type: "success", text: `Product "${result.name}" added successfully!` });
+      setMessage({ type: "success", text: `Product added successfully!` });
       setFormData({ name: "", description: "", price: "" });
       setImages([]);
       setImagePreviews([]);
+      setUploadProgress(null);
       
       setTimeout(() => {
         router.push("/");
@@ -171,6 +179,17 @@ export default function AddProductPage() {
                   <div key={index} className={styles.previewItem}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={preview} alt={`Preview ${index + 1}`} />
+                    {uploadProgress !== null && (
+                      <div className={styles.uploadOverlay} aria-hidden>
+                        <div className={styles.progressBarContainer}>
+                          <div
+                            className={styles.progressBar}
+                            style={{ width: `${uploadProgress}%` }}
+                          />
+                        </div>
+                        <div className={styles.progressPercent}>{uploadProgress}%</div>
+                      </div>
+                    )}
                     <button
                       type="button"
                       onClick={() => removeImage(index)}

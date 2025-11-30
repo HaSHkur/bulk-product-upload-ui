@@ -25,17 +25,15 @@ export default function ProductDetailPage() {
         setLoading(true);
         setError(null);
 
-        // Try to reuse product from sessionStorage (saved on landing page click)
         try {
           const stored = sessionStorage.getItem(`product_${productId}`);
           if (stored) {
             const parsed: Product = JSON.parse(stored);
             setProduct(parsed);
             setLoading(false);
-            return; // skip network call
+            return; 
           }
         } catch {
-          // ignore parse/storage errors and fall back to network
         }
 
         const data = await productService.getProductById(productId);

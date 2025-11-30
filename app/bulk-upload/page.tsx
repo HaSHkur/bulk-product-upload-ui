@@ -76,6 +76,10 @@ export default function BulkUploadPage() {
       setMessage("Bulk upload successful");
       setRows([makeEmptyRow()]);
       setProgress(null);
+      
+      setTimeout(() => {
+        router.push("/");
+      }, 1500);
     } catch (err) {
       setMessage(err instanceof Error ? err.message : String(err));
     } finally {

@@ -143,7 +143,7 @@ export default function AddProductPage() {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="price">Price ($) *</label>
+            <label htmlFor="price">Price *</label>
             <input
               type="number"
               id="price"

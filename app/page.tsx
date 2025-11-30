@@ -57,11 +57,15 @@ export default function Home() {
           <h1>Products</h1>
           <p>Currently {totalProducts} products are in Server</p>
         </div>
-        <Link href="/add" className={styles.addProductButton}>
-          + Add New Product
-        </Link>
+        <div>
+          <Link href="/add" className={styles.addProductButton}>
+            + Add New Product
+          </Link>
+          <Link href="/bulk-upload" className={styles.addProductButton}>
+            + Add Products in Batch
+          </Link>
+        </div>
       </div>
-
       {error && <div className={styles.error}>Error: {error}</div>}
 
       {loading ? (
@@ -102,7 +106,7 @@ export default function Home() {
                   <h3 className={styles.productName}>{product.name}</h3>
                   <p className={styles.productDescription}>{product.description.substring(0, 80)}...</p>
                   <div className={styles.priceSection}>
-                    <span className={styles.price}>${product.price.toFixed(2)}</span>
+                    <span className={styles.price}>৳{product.price.toFixed(2)}</span>
                   </div>
                 </div>
               </Link>

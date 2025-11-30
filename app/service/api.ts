@@ -53,6 +53,31 @@ export const productService = {
     });
     return response.data;
   },
+
+  bulkUpload: async (
+    payload: { products: { name: string; description: string; price: number }[]; files: File[] },
+    onProgress?: (percent: number) => void
+  ): Promise<unknown> => {
+    const formData = new FormData();
+
+    payload.files.forEach((file) => formData.append("files", file));
+    formData.append("products", JSON.stringify(payload.products));
+
+    const response = await api.post("products/bulk-upload", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+      onUploadProgress: (progressEvent: AxiosProgressEvent) => {
+        if (!onProgress) return;
+        const loaded = progressEvent.loaded ?? 0;
+        const total = progressEvent.total ?? 0;
+        if (total > 0) {
+          const percentCompleted = Math.round((loaded * 100) / total);
+          onProgress(percentCompleted);
+        }
+      },
+    });
+
+    return response.data;
+  },
 };
 
 export default api;

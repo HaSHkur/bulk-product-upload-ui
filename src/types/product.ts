@@ -13,6 +13,17 @@ export interface CreateProductPayload {
   images: File[];
 }
 
+export interface BulkProductInput {
+  name: string;
+  description: string;
+  price: number;
+}
+
+export interface BulkUploadPayload {
+  products: BulkProductInput[];
+  files: File[];
+}
+
 export interface PaginatedResponse<T> {
   data: T[];
   total: number;

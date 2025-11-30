@@ -68,7 +68,7 @@
   font-family: inherit;
   font-size: 14px;
   transition: all 0.3s ease;
-  color: #000; /* ensure black text inside inputs and textareas */
+  color: #000;
 }
 
 .formGroup input::placeholder,
@@ -155,7 +155,6 @@
   padding: 0;
 }
 
-/* Upload progress overlay shown during image upload */
 .uploadOverlay {
   position: absolute;
   inset: 0;
